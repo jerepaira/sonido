@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Sonido
+GenericName=Music Player
+Comment=Reproductor de música nativo basado en addons
+Exec=@BIN@ %U
+Icon=@ICON@
+Terminal=false
+Categories=AudioVideo;Audio;Player;
+Keywords=music;audio;player;streaming;addon;flac;
+MimeType=x-scheme-handler/sonido;
+StartupNotify=true
+StartupWMClass=sonido

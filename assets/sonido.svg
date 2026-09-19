@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="g" cx="38%" cy="30%" r="78%">
+      <stop offset="0%" stop-color="#a48bff"/>
+      <stop offset="55%" stop-color="#7c5cff"/>
+      <stop offset="100%" stop-color="#2a1f6b"/>
+    </radialGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#12141c"/>
+      <stop offset="100%" stop-color="#07080c"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#b)"/>
+  <!-- eclipse: disco + media luna -->
+  <circle cx="64" cy="60" r="34" fill="url(#g)"/>
+  <circle cx="79" cy="49" r="30" fill="#0b0d13"/>
+  <!-- onda de sonido -->
+  <g stroke="#00d6be" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M32 97 v8"/>
+    <path d="M48 92 v18"/>
+    <path d="M64 87 v28"/>
+    <path d="M80 92 v18"/>
+    <path d="M96 97 v8"/>
+  </g>
+</svg>

@@ -1,0 +1,63 @@
+[package]
+name = "sonido"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.80"
+authors = ["sonido"]
+description = "Reproductor de música nativo para Linux, rapidísimo, basado en addons (protocolo Eclipse Music)."
+license = "MIT"
+readme = "README.md"
+
+[[bin]]
+name = "sonido"
+path = "src/main.rs"
+
+[features]
+default = ["mpv"]
+# Por defecto el renderer es OpenGL (glow): compila rápido y anda en cualquier
+# driver Linux. Si preferís Vulkan/wgpu:
+#   cargo build --release --features wgpu_renderer --bin sonido
+wgpu_renderer = ["eframe/wgpu"]
+# Motor de audio principal: libmpv del sistema (FLAC Hi-Res, Dolby Atmos, gapless).
+# Se auto-detecta en build.rs; si no está, la app usa el backend 100% Rust (rodio).
+mpv = []
+
+[dependencies]
+eframe = { version = "0.36", default-features = false, features = ["default_fonts", "links", "glow", "wayland", "x11"] }
+egui = { version = "0.36", default-features = true }
+tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "macros", "sync", "time"] }
+ureq = { version = "3", default-features = false, features = ["rustls", "gzip", "brotli", "charset", "json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp", "gif"] }
+rodio = { version = "0.22", default-features = false, features = ["playback", "symphonia-flac", "symphonia-mp3", "symphonia-isomp4", "symphonia-aac", "symphonia-ogg", "symphonia-vorbis", "symphonia-wav", "symphonia-pcm"] }
+anyhow = "1"
+thiserror = "2"
+clap = { version = "4", features = ["derive"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+unicode-normalization = "0.1"
+
+# Perfil por defecto: rápido y a la vez compilable en máquinas con poca RAM.
+# Si tenés >= 8 GB y querés el último 3-6% de rendimiento, cambiá a:
+#     lto = "fat"   codegen-units = 1   panic = "abort"
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 8
+strip = "debuginfo"
+incremental = false
+
+[profile.release-max]
+inherits = "release"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+
+[profile.dev]
+opt-level = 1
+debug = "line-tables-only"
+
+[profile.dev.package."*"]
+opt-level = 2
